@@ -197,7 +197,7 @@ header .nav-login a{
 .main-container h2{
     font-family: Arial;
     font-size:40px;
-    color:#111;
+    color:rgb(255, 255, 255);
     line-height:50px;
     text-align:center;
 
@@ -205,7 +205,7 @@ header .nav-login a{
 .main-container h3{
     font-family: Arial;
     font-size:20px;
-    color:#111;
+    color:rgb(255, 255, 255);
     line-height:50px;
     text-align:center;
 
@@ -314,7 +314,9 @@ body {
 	font: 75% georgia, sans-serif;
 	line-height: 1.88889;
 	color: #555753; 
-	background: rgb(156, 156, 156) url(http://www.kirbylarson.com/wp-content/uploads/2015/01/bookflipping1.png) no-repeat top right; 
+	background: rgb(156, 156, 156) url(https://g8fip1kplyr33r3krz5b97d1-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/GettyImages-162815217-1160x773.jpg) no-repeat center center fixed; 
+	background: rgb(156, 156, 156) url(https://eoimages.gsfc.nasa.gov/images/imagerecords/79000/79765/dnb_land_ocean_ice.2012.3600x1800.jpg) no-repeat center center fixed; 
+    background-size: cover;
     margin: 0; 
 	padding: 0;
     }
@@ -333,7 +335,7 @@ h4 {
     letter-spacing: 1px; 
     text-align: right;
 	margin-right: 15%; 
-	color: rgb(14, 13, 13);
+	color: rgb(255, 255, 255);
 	}
 a:link { 
 	font-weight: bold; 
