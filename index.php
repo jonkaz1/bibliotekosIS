@@ -29,7 +29,7 @@ echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td><td>Užsakyti kel
 {
     if (isset($_SESSION['kliento_kodas'])) {
         //echo $_SESSION['kliento_kodas'];
-    
+    //if()
     echo '<tr>
             <td>'.$row['pavadinimas'].'</td>
             <td>'.$row['aprasymas'].'</td>
@@ -39,6 +39,12 @@ echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td><td>Užsakyti kel
                     <input type="hidden" name ="id_Kelione" value='.$row['id_Kelione'].'>
                     <input type="submit" name="uzsakymas" value="Užsakyti"/> 
                     </form>
+            
+                    <form method="post" action="sekamosKeliones.php">
+                    <input type="hidden" name ="id_Kelione" value='.$row['id_Kelione'].'>
+                    <input type="submit" name="sekti" value="Sekti kelionę"/> 
+                    </form>
+
             </td>
          </tr>';
         //$_SESSION['kliento_kodas'] = "";

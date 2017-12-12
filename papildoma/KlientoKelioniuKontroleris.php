@@ -141,6 +141,35 @@
         echo "</table>";
     }
 
+    function KlientoSekamosKeliones()
+    {
+        echo '        <section class="main-container">
+        <div class="main-wrapper">
+            <h3>
+                Sekamos keliones:
+            </h3>
+        </div>
+        </section>';
+
+        $dbc=mysqli_connect('localhost', 'root', '', 'is');
+        
+        $sql = " SELECT * FROM sekamos_keliones";
+        $result = mysqli_query($dbc, $sql);
+        echo "<table border=\"1\">";
+        echo "<tr><td>Sekama kelionė</td></tr>";
+        {while($row = mysqli_fetch_assoc($result))
+        {
+            if($_SESSION['kliento_kodas']=$row['fk_Klientaskliento_kodas'])
+            {
+                echo '<tr>
+                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                    </tr>';
+            }
+        }
+        };
+        echo "</table>";
+    }
+
     if(isset($_POST['uzsakymas']))
     {
         $con = mysqli_connect("localhost","root","","is");
@@ -170,6 +199,24 @@
         if (mysqli_query($con, $sql)){
             $_SESSION['zinute'] = "Užsakymas sėkmingai atšauktas!";
             header("Location: ./uzsakymoLangas.php");
+        }
+        else{
+            echo'Klaida :(<br>';
+            echo '<a href="../index.php">Atgal</a>';
+        }
+    }
+
+    if(isset($_POST['sekti']))
+    {
+        $con = mysqli_connect("localhost","root","","is");
+        $id_Kelione = $_POST['id_Kelione'];
+
+        $klientoKodas = $_SESSION['kliento_kodas'];
+        $sql = "INSERT INTO sekamos_keliones(fk_Klientaskliento_kodas, fk_Kelioneid_Kelione)
+         VALUES ('$klientoKodas', '$id_Kelione')";
+
+        if (mysqli_query($con, $sql)){
+            header("Location: ./sekamosKeliones.php");
         }
         else{
             echo'Klaida :(<br>';
