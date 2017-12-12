@@ -1,5 +1,6 @@
 <?php
 session_start();
+$dbc=mysqli_connect('localhost', 'root', '', 'is');
 ?>
 <html>
 <head>
@@ -62,7 +63,24 @@ session_start();
         <div class="main-wrapper">
             <ul>
                 <li><a href="index.php">Pagrindinis</a></li>
-                
+            </ul>
+            <div class="nav-login">
+                <form method="post" action="papildoma\login.php">
+                    <button type="submit" name="logout">Atsijungti</button>
+                </form>
+            </div>
+        </div>
+    </nav>';
+    }
+    else if($_SESSION['priv']==3) // DARBUOTOJAS
+    {
+        echo '<nav>
+        <div class="main-wrapper">
+            <ul>
+                <li><a href="index.php">Pagrindinis</a></li>
+            </ul>
+            <ul>
+                <li><a href="editProfile.php">Redaguoti profilį</a></li>
             </ul>
             <div class="nav-login">
                 <form method="post" action="papildoma\login.php">
