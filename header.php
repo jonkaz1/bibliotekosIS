@@ -1,17 +1,16 @@
 <?php
 session_start();
-$dbc=mysqli_connect('localhost', 'root', '', 'is');
+$dbc = mysqli_connect('localhost', 'root', '', 'is');
 ?>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css", href="styles.css">
+    <link rel="stylesheet" type="text/css" , href="styles.css">
 </head>
 
 <body>
 <header>
     <?php
-    if(!isset($_SESSION['name']))
-    {
+    if (!isset($_SESSION['name'])) {
         echo '    <nav>
         <div class="main-wrapper">
             <ul>
@@ -27,8 +26,7 @@ $dbc=mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
-    } else if($_SESSION['priv']==0)
-    {
+    } else if ($_SESSION['priv'] == 0) {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
@@ -42,8 +40,7 @@ $dbc=mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
-    }else if($_SESSION['priv']==1)
-    {
+    } else if ($_SESSION['priv'] == 1) {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
@@ -56,9 +53,7 @@ $dbc=mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
-    }
-    else if($_SESSION['priv']==2)
-    {
+    } else if ($_SESSION['priv'] == 2) {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
@@ -71,16 +66,14 @@ $dbc=mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
-    }
-    else if($_SESSION['priv']==3) // DARBUOTOJAS
+    } else if ($_SESSION['priv'] == 3) // DARBUOTOJAS
     {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
                 <li><a href="index.php">Pagrindinis</a></li>
-            </ul>
-            <ul>
                 <li><a href="editProfile.php">Redaguoti profilį</a></li>
+                <li><a href="workerTrips.php">Kelionės</a></li>
             </ul>
             <div class="nav-login">
                 <form method="post" action="papildoma\login.php">
@@ -93,14 +86,13 @@ $dbc=mysqli_connect('localhost', 'root', '', 'is');
     ?>
 
     <?php
-    if(isset($_SESSION['name']))
-    {
+    if (isset($_SESSION['name'])) {
         echo "
         <h4>
-            Prisijungęs: ".$_SESSION['name']."
+            Prisijungęs: " . $_SESSION['name'] . "
         </h4>
         ";
     }
-    
+
     ?>
 </header>
