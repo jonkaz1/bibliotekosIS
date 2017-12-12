@@ -20,30 +20,35 @@ if ((isset($_POST['submit'])))
     if($_POST !=null){
         $enteredUser = $_POST['user'];
         $enteredPass = $_POST['pass'];
-
-        $sql = "SELECT* FROM klientai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass'";
-        $result = $dbc ->query($sql);
-        if(!$row=$result->fetch_assoc())
-        {
-            $sql = "SELECT * FROM darbuotojai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass'";
+        if (!empty($enteredUser) && !empty($enteredPass)) {
+            $sql = "SELECT* FROM klientai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass'";
             $result = $dbc ->query($sql);
             if(!$row=$result->fetch_assoc())
             {
-                header("Location: ../index.php");
-                echo "Neteisingas slapyvardis/slaptažodis";
+                $sql = "SELECT * FROM darbuotojai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass'";
+                $result = $dbc ->query($sql);
+                if(!$row=$result->fetch_assoc())
+                {
+                    header("Location: ../index.php");
+                    echo "Neteisingas slapyvardis/slaptažodis";
+                }
+                else{
+                    $_SESSION['name'] = $row['vardas'];
+                    $_SESSION['priv'] = 3;
+                    $_SESSION['nick'] = $row['el_pastas'];
+                    header("Location: ../index.php");
+                }
             }
             else{
                 $_SESSION['name'] = $row['vardas'];
-                $_SESSION['priv'] = 3;
+                $_SESSION['priv'] = $row['kliento_tipas'];
                 $_SESSION['nick'] = $row['el_pastas'];
                 header("Location: ../index.php");
             }
-        }
-        else{
-            $_SESSION['name'] = $row['vardas'];
-            $_SESSION['priv'] = $row['kliento_tipas'];
-            $_SESSION['nick'] = $row['el_pastas'];
+        }else {
+            $_SESSION['zinute'] = "Prašome teisingai užpildyti prisijungimo laukus";
             header("Location: ../index.php");
+            //tuščia
         }
     }
 }
