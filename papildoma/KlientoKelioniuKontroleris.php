@@ -55,7 +55,7 @@
             <td>".$knyga[0]."</td><td>".$knyga[1]."</td><td>".$knyga[2]."</td>
             <td>";
             echo '
-            <form method="post" action="papildoma/kliento.php">
+            <form method="post" action="papildoma/KlientoKelioniuKontroleris.php">
             <input type="hidden" name ="kiekisGautas" value='.$knyga[2].'>
             <input type="hidden" name ="knygosID" value='.$knyga[3].'>
             <input type="hidden" name ="manoID" value='.$_SESSION['nick'].'>

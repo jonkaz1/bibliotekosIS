@@ -8,7 +8,7 @@ include_once'header.php';
         <h2>
             Registracija
         </h2>
-        <form class="register-form" method="post" action="papildoma\registration.php">
+        <form class="register-form" method="post" action="papildoma\KlientoDuomenuKontroleris.php">
             <input type="text" name="a1" placeholder="Vardas"><br/>
             <input type="text" name="a2" placeholder="Pavardė"><br/>
             <input type="text" name="a3" placeholder="Lytis"><br/>

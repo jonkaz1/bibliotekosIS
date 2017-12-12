@@ -94,5 +94,9 @@ $dbc = mysqli_connect('localhost', 'root', '', 'is');
         ";
     }
 
+    if (isset($_SESSION['zinute'])) {
+        echo $_SESSION['zinute'];
+        $_SESSION['zinute'] = "";
+    }
     ?>
 </header>
