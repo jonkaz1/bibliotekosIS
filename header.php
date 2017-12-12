@@ -62,6 +62,7 @@ $dbc = mysqli_connect('localhost', 'root', '', 'is');
         <div class="main-wrapper">
             <ul>
                 <li><a href="index.php">Pagrindinis</a></li>
+                <li><a href="uzsakymoLangas.php">Rodyti užsakymus</a></li>
                 <li><a href="pickabook.php">Rodyti sekamas keliones</a></li>
             </ul>
             <div class="nav-login">

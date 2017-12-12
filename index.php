@@ -23,25 +23,25 @@ $dbc=mysqli_connect('localhost', 'root', '', 'is');
 $sql = "SELECT * FROM keliones";
 $result = mysqli_query($dbc, $sql);
 echo "<table border=\"1\">";
-echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td></tr>";
+echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td><td>Užsakyti kelionę</td></tr>";
 // if (mysqli_num_rows($result) > 0)
 {while($row = mysqli_fetch_assoc($result))
 {
     if (isset($_SESSION['kliento_kodas'])) {
-        echo $_SESSION['kliento_kodas'];
-        $_SESSION['kliento_kodas'] = "";
+        //echo $_SESSION['kliento_kodas'];
     
     echo '<tr>
             <td>'.$row['pavadinimas'].'</td>
             <td>'.$row['aprasymas'].'</td>
             <td>'.$row['kaina_asmeniui'].'</td>
             <td>';
-                    echo '<form method="post" action="papildoma/bibliotekininko.php">
+                    echo '<form method="post" action="uzsakymoLangas.php">
                     <input type="hidden" name ="id_Kelione" value='.$row['id_Kelione'].'>
                     <input type="submit" name="uzsakymas" value="Užsakyti"/> 
                     </form>
             </td>
          </tr>';
+        //$_SESSION['kliento_kodas'] = "";
     }
     else{
         echo '<tr>

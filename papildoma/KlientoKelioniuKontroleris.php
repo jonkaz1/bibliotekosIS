@@ -66,33 +66,114 @@
         }
         echo '</table>';
     }
-    function SpausdintiKlientoKnygas()
-    {
-    echo '        <section class="main-container">
-    <div class="main-wrapper">
-        <h3>
-            Mano paimtos knygos
-        </h3>
-    </div>
-</section>';
 
-    $dbc=mysqli_connect('localhost', 'root', '', 'is');
-    $sql = " SELECT * FROM vartotojas INNER JOIN pasiskolinimas ON vartotojas.Slapyvardis=pasiskolinimas.fk_VartotojasSlapyvardis INNER JOIN knyga ON pasiskolinimas.fk_Knygaid=knyga.id";
-    $result = mysqli_query($dbc, $sql);
-    echo "<table border=\"1\">";
-    echo "<tr><td>Data</td><td>Pavadinimas</td><td>Metai</td><td>Grąžinimo data</td></tr>";
-    // if (mysqli_num_rows($result) > 0)
-    {while($row = mysqli_fetch_assoc($result))
+
+    function KlientoUzsakymai()
     {
-        if($_SESSION['nick']=$row['fk_VartotojasSlapyvardis'])
+        echo '        <section class="main-container">
+        <div class="main-wrapper">
+            <h3>
+                Užsakymai:
+            </h3>
+        </div>
+        </section>';
+
+        $dbc=mysqli_connect('localhost', 'root', '', 'is');
+        
+        $sql = " SELECT * FROM keliones_uzsakymai";
+        $result = mysqli_query($dbc, $sql);
+        echo "<table border=\"1\">";
+        echo "<tr><td>sukurimo_data</td><td>uzsakymo_busena</td><td>fk_Kelioneid_Kelione</td></tr>";
+        // if (mysqli_num_rows($result) > 0)
+        {while($row = mysqli_fetch_assoc($result))
         {
-            $tempTime = date('Y-m-d', strtotime($row['laikas']. ' + 7 days'));
-            echo "<tr><td>".$row['laikas']."</td><td>".$row['Pavadinimas']."</td><td>".$row['Metai']."</td><td>".$tempTime."</td></tr>";
+            if($_SESSION['kliento_kodas']=$row['fk_Klientaskliento_kodas'])
+            {
+                if($row['uzsakymo_busena']== 1)
+                {
+                    echo '<tr>
+                        <td>'.$row['sukurimo_data'].'</td>
+                        <td>'.'Atšauktas'.'</td>
+                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                    </tr>';
+                }else if ($row['uzsakymo_busena']== 2){
+                    echo '<tr>
+                        <td>'.$row['sukurimo_data'].'</td>
+                        <td>'.'Neapmokėtas'.'</td>
+                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                        <td>';
+                                echo '<form method="post" action="uzsakymoLangas.php">
+                                <input type="hidden" name ="uzsakymo_nr" value='.$row['uzsakymo_nr'].'>
+                                <input type="submit" name="atsaukimas" value="Atšaukti"/> 
+                                </form>
+                        </td>
+                    </tr>';
+                }else if ($row['uzsakymo_busena']== 3){
+                    echo '<tr>
+                        <td>'.$row['sukurimo_data'].'</td>
+                        <td>'.'Apmokėta įmoka'.'</td>
+                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                        <td>';
+                                echo '<form method="post" action="uzsakymoLangas.php">
+                                <input type="hidden" name ="uzsakymo_nr" value='.$row['uzsakymo_nr'].'>
+                                <input type="submit" name="atsaukimas" value="Atšaukti"/> 
+                                </form>
+                        </td>
+                    </tr>';
+                }else if ($row['uzsakymo_busena']== 4){
+                    echo "<tr>
+                        <td>".$row['sukurimo_data']."</td>
+                        <td>"."apmoketa"."</td>
+                        <td>".$row['fk_Kelioneid_Kelione']."</td>
+                    </tr>";
+                }else if ($row['uzsakymo_busena']== 5){
+                    echo "<tr>
+                        <td>".$row['sukurimo_data']."</td>
+                        <td>"."pabaigta"."</td>
+                        <td>".$row['fk_Kelioneid_Kelione']."</td>
+                    </tr>";
+                }
+            }
+        
+        
         }
-    
-    
+        };
+        echo "</table>";
     }
-    };
-    echo "</table>";
+
+    if(isset($_POST['uzsakymas']))
+    {
+        $con = mysqli_connect("localhost","root","","is");
+        $id_Kelione = $_POST['id_Kelione'];
+        $_SESSION['uzsakymoBool'] = 1;
+        $tempTime = date('Y-m-d');
+        $klientoKodas = $_SESSION['kliento_kodas'];
+        $sql = "INSERT INTO keliones_uzsakymai(sukurimo_data, uzsakymo_busena, fk_Kelioneid_Kelione, fk_Klientaskliento_kodas)
+         VALUES ('$tempTime', '2', '$id_Kelione', '$klientoKodas')";
+
+        if (mysqli_query($con, $sql)){
+            //header("Location: ../index.php");
+        }
+        else{
+            echo'Klaida :(<br>';
+            echo '<a href="../index.php">Atgal</a>';
+        }
+    }
+    //Užsakymo atšaukimas
+    if(isset($_POST['atsaukimas']))
+    {
+        $con = mysqli_connect("localhost","root","","is");
+        $uzsakymo_nr = $_POST['uzsakymo_nr'];
+
+        $sql = "UPDATE keliones_uzsakymai SET uzsakymo_busena = 1 WHERE uzsakymo_nr=".$uzsakymo_nr;
+
+        if (mysqli_query($con, $sql)){
+            $_SESSION['zinute'] = "Užsakymas sėkmingai atšauktas!";
+            header("Location: ./uzsakymoLangas.php");
+        }
+        else{
+            echo'Klaida :(<br>';
+            echo '<a href="../index.php">Atgal</a>';
+        }
     }
 ?>
