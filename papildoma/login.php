@@ -43,7 +43,7 @@ if ((isset($_POST['submit'])))
                 $_SESSION['name'] = $row['vardas'];
                 $_SESSION['priv'] = 2;
                 $_SESSION['nick'] = $row['el_pastas'];
-                $_SESSION['kliento_kodas'] = 2;//$row['kliento_kodas'];
+                $_SESSION['kliento_kodas'] = $row['kliento_kodas'];
                 header("Location: ../index.php");
             }
         }else {

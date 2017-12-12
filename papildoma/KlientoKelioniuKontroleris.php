@@ -80,27 +80,31 @@
 
         $dbc=mysqli_connect('localhost', 'root', '', 'is');
         
-        $sql = " SELECT * FROM keliones_uzsakymai";
+        //$sql = " SELECT * FROM keliones_uzsakymai";
+        $sql = " SELECT * FROM keliones JOIN keliones_uzsakymai ON keliones.id_Kelione=keliones_uzsakymai.fk_Kelioneid_Kelione ";
         $result = mysqli_query($dbc, $sql);
         echo "<table border=\"1\">";
-        echo "<tr><td>sukurimo_data</td><td>uzsakymo_busena</td><td>fk_Kelioneid_Kelione</td></tr>";
-        // if (mysqli_num_rows($result) > 0)
+        echo "<tr><td>Pavadinimas</td><td>Išvykimo data</td><td>Užsakymo data</td><td>Užsakymo būsena</td><td>Kaina</td></tr>";
         {while($row = mysqli_fetch_assoc($result))
         {
-            if($_SESSION['kliento_kodas']=$row['fk_Klientaskliento_kodas'])
+            if($_SESSION['kliento_kodas']==$row['fk_Klientaskliento_kodas'])
             {
                 if($row['uzsakymo_busena']== 1)
                 {
                     echo '<tr>
+                        <td>'.$row['pavadinimas'].'</td>
+                        <td>'.$row['isvykimo_data'].'</td>
                         <td>'.$row['sukurimo_data'].'</td>
                         <td>'.'Atšauktas'.'</td>
-                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                        <td>'.$row['kaina_asmeniui'].' eur</td>
                     </tr>';
                 }else if ($row['uzsakymo_busena']== 2){
                     echo '<tr>
+                        <td>'.$row['pavadinimas'].'</td>
+                        <td>'.$row['isvykimo_data'].'</td>
                         <td>'.$row['sukurimo_data'].'</td>
-                        <td>'.'Neapmokėtas'.'</td>
-                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                        <td>'.'Neapmokėta'.'</td>
+                        <td>'.$row['kaina_asmeniui'].' eur</td>
                         <td>';
                                 echo '<form method="post" action="uzsakymoLangas.php">
                                 <input type="hidden" name ="uzsakymo_nr" value='.$row['uzsakymo_nr'].'>
@@ -110,9 +114,11 @@
                     </tr>';
                 }else if ($row['uzsakymo_busena']== 3){
                     echo '<tr>
+                        <td>'.$row['pavadinimas'].'</td>
+                        <td>'.$row['isvykimo_data'].'</td>
                         <td>'.$row['sukurimo_data'].'</td>
                         <td>'.'Apmokėta įmoka'.'</td>
-                        <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                        <td>'.$row['kaina_asmeniui'].' eur</td>
                         <td>';
                                 echo '<form method="post" action="uzsakymoLangas.php">
                                 <input type="hidden" name ="uzsakymo_nr" value='.$row['uzsakymo_nr'].'>
@@ -121,17 +127,27 @@
                         </td>
                     </tr>';
                 }else if ($row['uzsakymo_busena']== 4){
-                    echo "<tr>
-                        <td>".$row['sukurimo_data']."</td>
-                        <td>"."apmoketa"."</td>
-                        <td>".$row['fk_Kelioneid_Kelione']."</td>
-                    </tr>";
+                    echo '<tr>
+                        <td>'.$row['pavadinimas'].'</td>
+                        <td>'.$row['isvykimo_data'].'</td>
+                        <td>'.$row['sukurimo_data'].'</td>
+                        <td>'.'Apmokėta'.'</td>
+                        <td>'.$row['kaina_asmeniui'].'</td>
+                        <td>';
+                            echo '<form method="post" action="uzsakymoLangas.php">
+                            <input type="hidden" name ="uzsakymo_nr" value='.$row['uzsakymo_nr'].'>
+                            <input type="submit" name="atsaukimas" value="Atšaukti"/> 
+                            </form>
+                        </td>
+                    </tr>';
                 }else if ($row['uzsakymo_busena']== 5){
-                    echo "<tr>
-                        <td>".$row['sukurimo_data']."</td>
-                        <td>"."pabaigta"."</td>
-                        <td>".$row['fk_Kelioneid_Kelione']."</td>
-                    </tr>";
+                    echo '<tr>
+                        <td>'.$row['pavadinimas'].'</td>
+                        <td>'.$row['isvykimo_data'].'</td>
+                        <td>'.$row['sukurimo_data'].'</td>
+                        <td>'.'pabaigta'.'</td>
+                        <td>'.$row['kaina_asmeniui'].' eur</td>
+                    </tr>';
                 }
             }
         
@@ -153,16 +169,25 @@
 
         $dbc=mysqli_connect('localhost', 'root', '', 'is');
         
-        $sql = " SELECT * FROM sekamos_keliones";
+        $sql = "SELECT * FROM keliones JOIN sekamos_keliones ON keliones.id_Kelione=sekamos_keliones.fk_Kelioneid_Kelione ";
         $result = mysqli_query($dbc, $sql);
         echo "<table border=\"1\">";
-        echo "<tr><td>Sekama kelionė</td></tr>";
+        echo "<tr><td>Pavadinimas</td><td>aprasymas</td><td>kaina_asmeniui</td><td>Sekama kelionė</td></tr>";
         {while($row = mysqli_fetch_assoc($result))
         {
-            if($_SESSION['kliento_kodas']=$row['fk_Klientaskliento_kodas'])
+            if($_SESSION['kliento_kodas']==$row['fk_Klientaskliento_kodas'])
             {
                 echo '<tr>
+                        <td>'.$row['pavadinimas'].'</td>
+                        <td>'.$row['aprasymas'].'</td>
+                        <td>'.$row['kaina_asmeniui'].'</td>
                         <td>'.$row['fk_Kelioneid_Kelione'].'</td>
+                        <td>';
+                            echo '<form method="post" action="sekamosKeliones.php">
+                            <input type="hidden" name ="id_Sekama_kelione" value='.$row['id_Sekama_kelione'].'>
+                            <input type="submit" name="sekimoAtsaukimas" value="Ištrinti"/> 
+                            </form>
+                        </td>
                     </tr>';
             }
         }
@@ -216,11 +241,30 @@
          VALUES ('$klientoKodas', '$id_Kelione')";
 
         if (mysqli_query($con, $sql)){
-            header("Location: ./sekamosKeliones.php");
+            $_SESSION['zinute'] = "Sekama kėlionė sėkmingai pridėta!";
+            header("Location: ./index.php");
         }
         else{
             echo'Klaida :(<br>';
             echo '<a href="../index.php">Atgal</a>';
+        }
+    }
+    
+    //Sekamos kelionės atšaukimas
+    if(isset($_POST['sekimoAtsaukimas']))
+    {
+        $con = mysqli_connect("localhost","root","","is");
+        $id_Sekama_kelione = $_POST['id_Sekama_kelione'];
+
+        $sql = "DELETE FROM sekamos_keliones WHERE id_Sekama_kelione=".$id_Sekama_kelione;
+        
+        if (mysqli_query($con, $sql)){
+            $_SESSION['zinute'] = "Sekama kėlionė sėkmingai panaikinta!";
+            header("Location: ./sekamosKeliones.php");
+        }
+        else{
+            echo'Klaida :(<br>';
+            echo '<a href="../sekamosKeliones.php">Atgal</a>';
         }
     }
 ?>

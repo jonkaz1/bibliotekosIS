@@ -6,7 +6,6 @@ if(!$dbc)
 {
     die("Neišėjo prisijungt");
 }
-//Registruoja kažką kitą o ne klientą. (praitam darbe čia buvo, kad registruoja bibliotekininką, o aukščiau vartotoją)
 if(isset($_POST['regi']))
 {
     if(!$dbc){
@@ -23,10 +22,11 @@ if(isset($_POST['regi']))
         if (!empty($a1) && !empty($a2)&& !empty($a6)&& !empty($a7)) {
             $sql = "INSERT INTO klientai(vardas, pavarde, lytis, telefonas, adresas, el_pastas, slaptazodis, kliento_tipas) VALUES ('$a1', '$a2', '$a3','$a4', '$a5', '$a6','$a7', '2')";
             if (mysqli_query($dbc, $sql)){
-                header("Location: index.php");
-                echo "Įrašyta";
+                $_SESSION['zinute'] = "Registracija sėkminga!";
+                header("Location: ../index.php");
             }
             else{
+                $_SESSION['zinute'] = "Prašome teisingai užpildyti laukus";
                 header("Location: ../register.php");
             }
         }
