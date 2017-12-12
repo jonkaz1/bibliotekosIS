@@ -30,7 +30,7 @@ if ((isset($_POST['submit'])))
                 if(!$row=$result->fetch_assoc())
                 {
                     header("Location: ../index.php");
-                    echo "Neteisingas slapyvardis/slaptažodis";
+                    $_SESSION['zinute'] = "Neteisingas slapyvardis/slaptažodis";
                 }
                 else{
                     $_SESSION['name'] = $row['vardas'];
@@ -41,14 +41,14 @@ if ((isset($_POST['submit'])))
             }
             else{
                 $_SESSION['name'] = $row['vardas'];
-                $_SESSION['priv'] = $row['kliento_tipas'];
+                $_SESSION['priv'] = 2;
                 $_SESSION['nick'] = $row['el_pastas'];
+                $_SESSION['kliento_kodas'] = 2;//$row['kliento_kodas'];
                 header("Location: ../index.php");
             }
         }else {
-            $_SESSION['zinute'] = "Prašome teisingai užpildyti prisijungimo laukus";
+            $_SESSION['zinute'] = "Prašome užpildyti prisijungimo laukus";
             header("Location: ../index.php");
-            //tuščia
         }
     }
 }

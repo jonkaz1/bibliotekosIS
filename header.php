@@ -26,12 +26,12 @@ $dbc = mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
+    //Neužimtas
     } else if ($_SESSION['priv'] == 0) {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
                 <li><a href="index.php">Pagrindinis</a></li>
-
             </ul>
             <div class="nav-login">
                 <form method="post" action="papildoma\login.php">
@@ -40,11 +40,14 @@ $dbc = mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
+    //Neužimtas
     } else if ($_SESSION['priv'] == 1) {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
                 <li><a href="index.php">Pagrindinis</a></li>
+                <li><a href="pickabook.php">Išsirinkti knygą</a></li>
+                
             </ul>
             <div class="nav-login">
                 <form method="post" action="papildoma\login.php">
@@ -53,11 +56,13 @@ $dbc = mysqli_connect('localhost', 'root', '', 'is');
             </div>
         </div>
     </nav>';
-    } else if ($_SESSION['priv'] == 2) {
+    } else if ($_SESSION['priv'] == 2) //Klientas
+    {
         echo '<nav>
         <div class="main-wrapper">
             <ul>
                 <li><a href="index.php">Pagrindinis</a></li>
+                <li><a href="pickabook.php">Rodyti sekamas keliones</a></li>
             </ul>
             <div class="nav-login">
                 <form method="post" action="papildoma\login.php">

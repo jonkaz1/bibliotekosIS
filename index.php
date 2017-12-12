@@ -27,7 +27,29 @@ echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td></tr>";
 // if (mysqli_num_rows($result) > 0)
 {while($row = mysqli_fetch_assoc($result))
 {
-    echo "<tr><td>".$row['pavadinimas']."</td><td>".$row['aprasymas']."</td><td>".$row['kaina_asmeniui']."</td></tr>";
+    if (isset($_SESSION['kliento_kodas'])) {
+        echo $_SESSION['kliento_kodas'];
+        $_SESSION['kliento_kodas'] = "";
+    
+    echo '<tr>
+            <td>'.$row['pavadinimas'].'</td>
+            <td>'.$row['aprasymas'].'</td>
+            <td>'.$row['kaina_asmeniui'].'</td>
+            <td>';
+                    echo '<form method="post" action="papildoma/bibliotekininko.php">
+                    <input type="hidden" name ="id_Kelione" value='.$row['id_Kelione'].'>
+                    <input type="submit" name="uzsakymas" value="Užsakyti"/> 
+                    </form>
+            </td>
+         </tr>';
+    }
+    else{
+        echo '<tr>
+            <td>'.$row['pavadinimas'].'</td>
+            <td>'.$row['aprasymas'].'</td>
+            <td>'.$row['kaina_asmeniui'].'</td>
+        </tr>';
+    }
 }
 };
 echo "</table>";

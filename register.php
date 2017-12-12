@@ -1,7 +1,7 @@
 <?php
 include_once'header.php';
 
-
+//Kliento registracijos langas
 ?>
 <section class="main-container">
     <div class="main-wrapper">
