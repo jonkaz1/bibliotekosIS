@@ -19,7 +19,7 @@ echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td><td>Tipas</td></t
             <tr>
                 <td>" . $row['pavadinimas'] . "</td>
                 <td>" . $row['aprasymas'] . "</td>
-                <td>" . $row['kaina_asmeniui'] . "</td>
+                <td>" . $row['kaina_asmeniui'] . " EUR</td>
                 <td>" . $row['tipas'] . "</td>
                 <td>
                     <form style='display: inline;' method='get' action='tripExpenses.php'>

@@ -37,7 +37,7 @@ if (!isset($_POST['from']) || !isset($_POST['to'])) {
         echo "
             <tr>
                 <td>" . $row['data'] . "</td>
-                <td>" . $row['suma'] . "</td>
+                <td>" . $row['suma'] . " EUR</td>
             </tr>
         ";
     }
