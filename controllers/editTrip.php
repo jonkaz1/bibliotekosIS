@@ -7,6 +7,7 @@ if (!$dbc) {
 }
 
 if (isset($_POST['save'])) {
+    $id = $_POST['id'];
     $a1 = $_POST['a1'];
     $a2 = $_POST['a2'];
     $a3 = $_POST['a3'];
@@ -33,6 +34,8 @@ if (isset($_POST['save'])) {
               , transporto_tipas='$a10'
               , nakvynes_tipas='$a11'
               , maitinimo_tipas='$a12'
+            WHERE
+            id_Kelione='$id'
         ";
     if (mysqli_query($dbc, $sql)) {
         header("Location: ../workerTrips.php");
