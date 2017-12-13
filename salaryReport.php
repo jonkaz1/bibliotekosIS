@@ -13,7 +13,7 @@ include_once 'header.php';
 if (!isset($_POST['from']) || !isset($_POST['to'])) {
     echo '
         <div align="center">
-            <form class="interval" method="post" action="salaryReport.php">
+            <form class="register-form" method="post" action="salaryReport.php">
             <p align="center" style="color: white; width: 50px">NUO</p>
                 <input type="date" name="from" placeholder="from"><br/>
                 <p align="center" style="color: white; width: 50px">IKI</p>
