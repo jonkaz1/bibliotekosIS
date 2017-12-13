@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 m. Grd 13 d. 08:36
+-- Generation Time: 2017 m. Grd 13 d. 10:18
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -78,9 +78,21 @@ INSERT INTO `darbuotojai` (`vardas`, `pavarde`, `telefonas`, `el_pastas`, `darbu
 CREATE TABLE `islaidos` (
   `pavadinimas` varchar(255) NOT NULL,
   `kaina` double NOT NULL,
-  `id_islaidos` int(11) NOT NULL,
-  `fk_Kelioneid_Kelione` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `kelionesId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `islaidos`
+--
+
+INSERT INTO `islaidos` (`pavadinimas`, `kaina`, `id`, `kelionesId`) VALUES
+('Islaida1', 70, 1, 1),
+('Islaida3', 20, 3, 2),
+('Islaida4', 100, 4, 2),
+('Islaida5', 5, 5, 3),
+('Islaida6', 37, 6, 3),
+('nauja islaida', 13, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +121,7 @@ CREATE TABLE `keliones` (
 --
 
 INSERT INTO `keliones` (`pavadinimas`, `aprasymas`, `marsutas`, `tipas`, `kaina_asmeniui`, `vietu_sk`, `trukme`, `isvykimo_data`, `isvykimo_vieta`, `transporto_tipas`, `nakvynes_tipas`, `maitinimo_tipas`, `id_Kelione`) VALUES
-('Plaukimas jachta Kauno mariose', 'Vanduo!', 'Kaunas - Ziegzdriai - Kaunas', 'Poilsine - aktyvi', 50, 6, 1, '2018-05-25', '2017-12-07', 1, 1, 1, 1),
+('Plaukimas jachta Kauno mariose', 'Vanduo', 'Kaunas - Ziegzdriai - Kaunas', 'Poilsine - aktyvi', 50, 6, 1, '2018-05-25', '2017-12-07', 1, 1, 1, 1),
 ('Poilsis Nidoje', 'Jura, smelis ir t.t', 'Vilnius - Kaunas - Nida', 'Poilsine', 120, 25, 5, '2018-07-21', '2017-12-07', 2, 3, 4, 2),
 ('Kelione i aukstuosius Tatrus', 'Lipsim i kalnus ir begiosim aukstyn - zemyn!', 'Kaunas - Zakopane - Kaunas', 'Aktyvi', 350, 15, 7, '2018-06-21', '2017-12-12', 1, 1, 1, 3);
 
@@ -442,8 +454,8 @@ ALTER TABLE `darbuotojai`
 -- Indexes for table `islaidos`
 --
 ALTER TABLE `islaidos`
-  ADD PRIMARY KEY (`id_islaidos`),
-  ADD KEY `turi` (`fk_Kelioneid_Kelione`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `turi` (`kelionesId`);
 
 --
 -- Indexes for table `keliones`
@@ -583,6 +595,11 @@ ALTER TABLE `atlyginimai`
 ALTER TABLE `darbuotojai`
   MODIFY `darbuotoju_nr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1113;
 --
+-- AUTO_INCREMENT for table `islaidos`
+--
+ALTER TABLE `islaidos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
 -- AUTO_INCREMENT for table `keliones_uzsakymai`
 --
 ALTER TABLE `keliones_uzsakymai`
@@ -617,7 +634,7 @@ ALTER TABLE `darbuotojai`
 -- Apribojimai lentelei `islaidos`
 --
 ALTER TABLE `islaidos`
-  ADD CONSTRAINT `turi` FOREIGN KEY (`fk_Kelioneid_Kelione`) REFERENCES `keliones` (`id_Kelione`);
+  ADD CONSTRAINT `turi` FOREIGN KEY (`kelionesId`) REFERENCES `keliones` (`id_Kelione`);
 
 --
 -- Apribojimai lentelei `keliones`
