@@ -4,7 +4,7 @@ include_once 'header.php';
 <section class="main-container">
     <div class="main-wrapper">
         <h2>
-            Islaidos redagavimas
+            Išlaidos redagavimas
         </h2>
         <?php
         $id = $_GET["id"];

@@ -8,7 +8,7 @@ include_once 'header.php';
             </h2>
             <?php
             echo '
-            <form align="center" method="post" action="controllers\editExpenses.php">
+            <form class="register-form" align="center" method="post" action="controllers\editExpenses.php">
                 <input type="hidden" name="tripId" value="'. $_GET['tripId'] .'">
                 <input type="text" name="pavadinimas" placeholder="Pavadinimas"><br/>
                 <input type="text" name="kaina" placeholder="Kaina"><br/>
