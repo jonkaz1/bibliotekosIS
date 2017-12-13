@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2017 at 12:12 AM
+-- Generation Time: 2017 m. Grd 13 d. 08:36
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -23,20 +23,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `atlyginimai`
+-- Sukurta duomenų struktūra lentelei `atlyginimai`
 --
 
 CREATE TABLE `atlyginimai` (
   `data` date NOT NULL,
   `suma` double NOT NULL,
   `id_Atlyginimas` int(11) NOT NULL,
-  `fk_Darbuotojasdarbuotoju_nr` int(11) NOT NULL
+  `darbuotojoId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `atlyginimai`
+--
+
+INSERT INTO `atlyginimai` (`data`, `suma`, `id_Atlyginimas`, `darbuotojoId`) VALUES
+('2017-11-10', 200, 1, 0),
+('2017-11-25', 150, 2, 0),
+('2017-12-05', 110, 3, 0),
+('2017-11-15', 130, 4, 1),
+('2017-11-30', 330, 5, 1),
+('2017-12-10', 170, 6, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `darbuotojai`
+-- Sukurta duomenų struktūra lentelei `darbuotojai`
 --
 
 CREATE TABLE `darbuotojai` (
@@ -50,16 +62,17 @@ CREATE TABLE `darbuotojai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `darbuotojai`
+-- Sukurta duomenų kopija lentelei `darbuotojai`
 --
 
 INSERT INTO `darbuotojai` (`vardas`, `pavarde`, `telefonas`, `el_pastas`, `darbuotoju_nr`, `pareigu_tipas`, `slaptazodis`) VALUES
-('Domas1', 'Kirdeikis2', '123', 'domas@test.lt', 1111, 2, '123');
+('Darbuotojas', 'D', '86123', 'Darbuotojas@test.lt', 0, 1, '123'),
+('Domas1', 'Kirdeikis2', '123', 'domas@test.lt', 1, 2, '123');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `islaidos`
+-- Sukurta duomenų struktūra lentelei `islaidos`
 --
 
 CREATE TABLE `islaidos` (
@@ -72,7 +85,7 @@ CREATE TABLE `islaidos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keliones`
+-- Sukurta duomenų struktūra lentelei `keliones`
 --
 
 CREATE TABLE `keliones` (
@@ -92,7 +105,7 @@ CREATE TABLE `keliones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `keliones`
+-- Sukurta duomenų kopija lentelei `keliones`
 --
 
 INSERT INTO `keliones` (`pavadinimas`, `aprasymas`, `marsutas`, `tipas`, `kaina_asmeniui`, `vietu_sk`, `trukme`, `isvykimo_data`, `isvykimo_vieta`, `transporto_tipas`, `nakvynes_tipas`, `maitinimo_tipas`, `id_Kelione`) VALUES
@@ -103,7 +116,7 @@ INSERT INTO `keliones` (`pavadinimas`, `aprasymas`, `marsutas`, `tipas`, `kaina_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keliones_darbuotojai`
+-- Sukurta duomenų struktūra lentelei `keliones_darbuotojai`
 --
 
 CREATE TABLE `keliones_darbuotojai` (
@@ -115,7 +128,7 @@ CREATE TABLE `keliones_darbuotojai` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keliones_kategorijo`
+-- Sukurta duomenų struktūra lentelei `keliones_kategorijo`
 --
 
 CREATE TABLE `keliones_kategorijo` (
@@ -126,7 +139,7 @@ CREATE TABLE `keliones_kategorijo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keliones_kategorijos`
+-- Sukurta duomenų struktūra lentelei `keliones_kategorijos`
 --
 
 CREATE TABLE `keliones_kategorijos` (
@@ -137,7 +150,7 @@ CREATE TABLE `keliones_kategorijos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keliones_uzsakymai`
+-- Sukurta duomenų struktūra lentelei `keliones_uzsakymai`
 --
 
 CREATE TABLE `keliones_uzsakymai` (
@@ -149,7 +162,7 @@ CREATE TABLE `keliones_uzsakymai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `keliones_uzsakymai`
+-- Sukurta duomenų kopija lentelei `keliones_uzsakymai`
 --
 
 INSERT INTO `keliones_uzsakymai` (`uzsakymo_nr`, `sukurimo_data`, `uzsakymo_busena`, `fk_Kelioneid_Kelione`, `fk_Klientaskliento_kodas`) VALUES
@@ -161,7 +174,7 @@ INSERT INTO `keliones_uzsakymai` (`uzsakymo_nr`, `sukurimo_data`, `uzsakymo_buse
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kel_pap_pas`
+-- Sukurta duomenų struktūra lentelei `kel_pap_pas`
 --
 
 CREATE TABLE `kel_pap_pas` (
@@ -172,7 +185,7 @@ CREATE TABLE `kel_pap_pas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `klientai`
+-- Sukurta duomenų struktūra lentelei `klientai`
 --
 
 CREATE TABLE `klientai` (
@@ -188,7 +201,7 @@ CREATE TABLE `klientai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `klientai`
+-- Sukurta duomenų kopija lentelei `klientai`
 --
 
 INSERT INTO `klientai` (`kliento_kodas`, `vardas`, `pavarde`, `lytis`, `telefonas`, `adresas`, `el_pastas`, `slaptazodis`, `kliento_tipas`) VALUES
@@ -196,8 +209,9 @@ INSERT INTO `klientai` (`kliento_kodas`, `vardas`, `pavarde`, `lytis`, `telefona
 (3, 'klientas2', 'klientas2', 'vyr.', '866625417', 'Kaunas 3', 'klientas2@mail.com', '123', 2);
 
 -- --------------------------------------------------------
+
 --
--- Table structure for table `kliento_tipai`
+-- Sukurta duomenų struktūra lentelei `kliento_tipai`
 --
 
 CREATE TABLE `kliento_tipai` (
@@ -206,7 +220,7 @@ CREATE TABLE `kliento_tipai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kliento_tipai`
+-- Sukurta duomenų kopija lentelei `kliento_tipai`
 --
 
 INSERT INTO `kliento_tipai` (`id_kliento_tipas`, `name`) VALUES
@@ -216,7 +230,7 @@ INSERT INTO `kliento_tipai` (`id_kliento_tipas`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `maitinimo_tipai`
+-- Sukurta duomenų struktūra lentelei `maitinimo_tipai`
 --
 
 CREATE TABLE `maitinimo_tipai` (
@@ -225,7 +239,7 @@ CREATE TABLE `maitinimo_tipai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `maitinimo_tipai`
+-- Sukurta duomenų kopija lentelei `maitinimo_tipai`
 --
 
 INSERT INTO `maitinimo_tipai` (`id_maitinimo_tipas`, `name`) VALUES
@@ -237,7 +251,7 @@ INSERT INTO `maitinimo_tipai` (`id_maitinimo_tipas`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mokejimai`
+-- Sukurta duomenų struktūra lentelei `mokejimai`
 --
 
 CREATE TABLE `mokejimai` (
@@ -252,7 +266,7 @@ CREATE TABLE `mokejimai` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mokejimo_busenos`
+-- Sukurta duomenų struktūra lentelei `mokejimo_busenos`
 --
 
 CREATE TABLE `mokejimo_busenos` (
@@ -261,7 +275,7 @@ CREATE TABLE `mokejimo_busenos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mokejimo_busenos`
+-- Sukurta duomenų kopija lentelei `mokejimo_busenos`
 --
 
 INSERT INTO `mokejimo_busenos` (`id_mokejimo_busena`, `name`) VALUES
@@ -272,7 +286,7 @@ INSERT INTO `mokejimo_busenos` (`id_mokejimo_busena`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mokejimo_tipai`
+-- Sukurta duomenų struktūra lentelei `mokejimo_tipai`
 --
 
 CREATE TABLE `mokejimo_tipai` (
@@ -281,7 +295,7 @@ CREATE TABLE `mokejimo_tipai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mokejimo_tipai`
+-- Sukurta duomenų kopija lentelei `mokejimo_tipai`
 --
 
 INSERT INTO `mokejimo_tipai` (`id_mokejimo_tipas`, `name`) VALUES
@@ -291,7 +305,7 @@ INSERT INTO `mokejimo_tipai` (`id_mokejimo_tipas`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nakvynes_tipai`
+-- Sukurta duomenų struktūra lentelei `nakvynes_tipai`
 --
 
 CREATE TABLE `nakvynes_tipai` (
@@ -300,7 +314,7 @@ CREATE TABLE `nakvynes_tipai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `nakvynes_tipai`
+-- Sukurta duomenų kopija lentelei `nakvynes_tipai`
 --
 
 INSERT INTO `nakvynes_tipai` (`id_nakvynes_tipas`, `name`) VALUES
@@ -312,7 +326,7 @@ INSERT INTO `nakvynes_tipai` (`id_nakvynes_tipas`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `papildomos_paslaugos`
+-- Sukurta duomenų struktūra lentelei `papildomos_paslaugos`
 --
 
 CREATE TABLE `papildomos_paslaugos` (
@@ -324,7 +338,7 @@ CREATE TABLE `papildomos_paslaugos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pareigu_tipai`
+-- Sukurta duomenų struktūra lentelei `pareigu_tipai`
 --
 
 CREATE TABLE `pareigu_tipai` (
@@ -333,7 +347,7 @@ CREATE TABLE `pareigu_tipai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pareigu_tipai`
+-- Sukurta duomenų kopija lentelei `pareigu_tipai`
 --
 
 INSERT INTO `pareigu_tipai` (`id_pareigu_tipas`, `name`) VALUES
@@ -344,7 +358,7 @@ INSERT INTO `pareigu_tipai` (`id_pareigu_tipas`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sekamos_keliones`
+-- Sukurta duomenų struktūra lentelei `sekamos_keliones`
 --
 
 CREATE TABLE `sekamos_keliones` (
@@ -354,7 +368,7 @@ CREATE TABLE `sekamos_keliones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sekamos_keliones`
+-- Sukurta duomenų kopija lentelei `sekamos_keliones`
 --
 
 INSERT INTO `sekamos_keliones` (`id_Sekama_kelione`, `fk_Klientaskliento_kodas`, `fk_Kelioneid_Kelione`) VALUES
@@ -366,7 +380,7 @@ INSERT INTO `sekamos_keliones` (`id_Sekama_kelione`, `fk_Klientaskliento_kodas`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transporto_tipai`
+-- Sukurta duomenų struktūra lentelei `transporto_tipai`
 --
 
 CREATE TABLE `transporto_tipai` (
@@ -375,7 +389,7 @@ CREATE TABLE `transporto_tipai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transporto_tipai`
+-- Sukurta duomenų kopija lentelei `transporto_tipai`
 --
 
 INSERT INTO `transporto_tipai` (`id_transporto_tipas`, `name`) VALUES
@@ -387,7 +401,7 @@ INSERT INTO `transporto_tipai` (`id_transporto_tipas`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `uzsakymo_busenos`
+-- Sukurta duomenų struktūra lentelei `uzsakymo_busenos`
 --
 
 CREATE TABLE `uzsakymo_busenos` (
@@ -396,7 +410,7 @@ CREATE TABLE `uzsakymo_busenos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `uzsakymo_busenos`
+-- Sukurta duomenų kopija lentelei `uzsakymo_busenos`
 --
 
 INSERT INTO `uzsakymo_busenos` (`id_Uzsakymo_busena`, `name`) VALUES
@@ -415,7 +429,7 @@ INSERT INTO `uzsakymo_busenos` (`id_Uzsakymo_busena`, `name`) VALUES
 --
 ALTER TABLE `atlyginimai`
   ADD PRIMARY KEY (`id_Atlyginimas`),
-  ADD KEY `gauna` (`fk_Darbuotojasdarbuotoju_nr`);
+  ADD KEY `gauna` (`darbuotojoId`);
 
 --
 -- Indexes for table `darbuotojai`
@@ -559,6 +573,16 @@ ALTER TABLE `uzsakymo_busenos`
 --
 
 --
+-- AUTO_INCREMENT for table `atlyginimai`
+--
+ALTER TABLE `atlyginimai`
+  MODIFY `id_Atlyginimas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `darbuotojai`
+--
+ALTER TABLE `darbuotojai`
+  MODIFY `darbuotoju_nr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1113;
+--
 -- AUTO_INCREMENT for table `keliones_uzsakymai`
 --
 ALTER TABLE `keliones_uzsakymai`
@@ -574,29 +598,29 @@ ALTER TABLE `klientai`
 ALTER TABLE `sekamos_keliones`
   MODIFY `id_Sekama_kelione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
--- Constraints for dumped tables
+-- Apribojimai eksportuotom lentelėm
 --
 
 --
--- Constraints for table `atlyginimai`
+-- Apribojimai lentelei `atlyginimai`
 --
 ALTER TABLE `atlyginimai`
-  ADD CONSTRAINT `gauna` FOREIGN KEY (`fk_Darbuotojasdarbuotoju_nr`) REFERENCES `darbuotojai` (`darbuotoju_nr`);
+  ADD CONSTRAINT `fk_darbuotojas` FOREIGN KEY (`darbuotojoId`) REFERENCES `darbuotojai` (`darbuotoju_nr`);
 
 --
--- Constraints for table `darbuotojai`
+-- Apribojimai lentelei `darbuotojai`
 --
 ALTER TABLE `darbuotojai`
   ADD CONSTRAINT `darbuotojai_ibfk_1` FOREIGN KEY (`pareigu_tipas`) REFERENCES `pareigu_tipai` (`id_pareigu_tipas`);
 
 --
--- Constraints for table `islaidos`
+-- Apribojimai lentelei `islaidos`
 --
 ALTER TABLE `islaidos`
   ADD CONSTRAINT `turi` FOREIGN KEY (`fk_Kelioneid_Kelione`) REFERENCES `keliones` (`id_Kelione`);
 
 --
--- Constraints for table `keliones`
+-- Apribojimai lentelei `keliones`
 --
 ALTER TABLE `keliones`
   ADD CONSTRAINT `keliones_ibfk_1` FOREIGN KEY (`transporto_tipas`) REFERENCES `transporto_tipai` (`id_transporto_tipas`),
@@ -604,20 +628,20 @@ ALTER TABLE `keliones`
   ADD CONSTRAINT `keliones_ibfk_3` FOREIGN KEY (`maitinimo_tipas`) REFERENCES `maitinimo_tipai` (`id_maitinimo_tipas`);
 
 --
--- Constraints for table `keliones_darbuotojai`
+-- Apribojimai lentelei `keliones_darbuotojai`
 --
 ALTER TABLE `keliones_darbuotojai`
   ADD CONSTRAINT `turi2` FOREIGN KEY (`fk_Kelioneid_Kelione`) REFERENCES `keliones` (`id_Kelione`),
   ADD CONSTRAINT `yra` FOREIGN KEY (`fk_Darbuotojasdarbuotoju_nr`) REFERENCES `darbuotojai` (`darbuotoju_nr`);
 
 --
--- Constraints for table `keliones_kategorijo`
+-- Apribojimai lentelei `keliones_kategorijo`
 --
 ALTER TABLE `keliones_kategorijo`
   ADD CONSTRAINT `turi3` FOREIGN KEY (`fk_Keliones_kategorijaid_Keliones_kategorija`) REFERENCES `keliones_kategorijos` (`id_Keliones_kategorija`);
 
 --
--- Constraints for table `keliones_uzsakymai`
+-- Apribojimai lentelei `keliones_uzsakymai`
 --
 ALTER TABLE `keliones_uzsakymai`
   ADD CONSTRAINT `keliones_uzsakymai_ibfk_1` FOREIGN KEY (`uzsakymo_busena`) REFERENCES `uzsakymo_busenos` (`id_Uzsakymo_busena`),
@@ -625,19 +649,19 @@ ALTER TABLE `keliones_uzsakymai`
   ADD CONSTRAINT `sukuria` FOREIGN KEY (`fk_Klientaskliento_kodas`) REFERENCES `klientai` (`kliento_kodas`);
 
 --
--- Constraints for table `kel_pap_pas`
+-- Apribojimai lentelei `kel_pap_pas`
 --
 ALTER TABLE `kel_pap_pas`
   ADD CONSTRAINT `turi5` FOREIGN KEY (`fk_papildomos_paslaugosid_papildomos_paslaugos`) REFERENCES `papildomos_paslaugos` (`id_papildomos_paslaugos`);
 
 --
--- Constraints for table `klientai`
+-- Apribojimai lentelei `klientai`
 --
 ALTER TABLE `klientai`
   ADD CONSTRAINT `klientai_ibfk_1` FOREIGN KEY (`kliento_tipas`) REFERENCES `kliento_tipai` (`id_kliento_tipas`);
 
 --
--- Constraints for table `mokejimai`
+-- Apribojimai lentelei `mokejimai`
 --
 ALTER TABLE `mokejimai`
   ADD CONSTRAINT `mokejimai_ibfk_1` FOREIGN KEY (`mokejimo_busena`) REFERENCES `mokejimo_busenos` (`id_mokejimo_busena`),
@@ -645,7 +669,7 @@ ALTER TABLE `mokejimai`
   ADD CONSTRAINT `priskirtas` FOREIGN KEY (`fk_Keliones_uzsakymasuzsakymo_nr`) REFERENCES `keliones_uzsakymai` (`uzsakymo_nr`);
 
 --
--- Constraints for table `sekamos_keliones`
+-- Apribojimai lentelei `sekamos_keliones`
 --
 ALTER TABLE `sekamos_keliones`
   ADD CONSTRAINT `turi4` FOREIGN KEY (`fk_Klientaskliento_kodas`) REFERENCES `klientai` (`kliento_kodas`),
