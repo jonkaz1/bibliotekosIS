@@ -25,12 +25,28 @@ if ((isset($_POST['submit'])))
             $result = $dbc ->query($sql);
             if(!$row=$result->fetch_assoc())
             {
-                $sql = "SELECT * FROM darbuotojai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass'";
+                $sql = "SELECT * FROM darbuotojai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass' AND pareigu_tipas='2'";
                 $result = $dbc ->query($sql);
                 if(!$row=$result->fetch_assoc())
                 {
-                    header("Location: ../index.php");
-                    $_SESSION['zinute'] = "Neteisingas slapyvardis/slaptažodis";
+					
+					$sql = "SELECT * FROM darbuotojai WHERE el_pastas='$enteredUser' AND slaptazodis='$enteredPass' AND pareigu_tipas='1'";
+					$result = $dbc ->query($sql);
+					if(!$row=$result->fetch_assoc())
+					{
+						header("Location: ../index.php");
+						$_SESSION['zinute'] = "Neteisingas slapyvardis/slaptažodis";
+					}
+					else{
+						$_SESSION['name'] = $row['vardas'];
+						$_SESSION['priv'] = 1;
+						$_SESSION['nick'] = $row['el_pastas'];
+						header("Location: ../index.php");
+					}
+					
+					
+					
+                   
                 }
                 else{
                     $_SESSION['name'] = $row['vardas'];
