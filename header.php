@@ -82,6 +82,7 @@ $dbc = mysqli_connect('localhost', 'root', '', 'is');
                 <li><a href="index.php">Pagrindinis</a></li>
                 <li><a href="editProfile.php">Redaguoti profilį</a></li>
                 <li><a href="workerTrips.php">Kelionės</a></li>
+                <li><a href="salaryReport.php">Atyginimo ataskaita</a></li>
             </ul>
             <div class="nav-login">
                 <form method="post" action="papildoma\login.php">

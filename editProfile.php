@@ -19,7 +19,6 @@ include_once 'header.php';
                 <input type="text" name="a2" placeholder="Pavardė" value="'.$row['pavarde'].'"><br/>
                 <input type="text" name="a3" placeholder="Telefonas" value="'.$row['telefonas'].'"><br/>
                 <input type="email" name="a4" placeholder="El. paštas" value="'.$row['el_pastas'].'"><br/>
-                <input type="text" name="a5" placeholder="Darbuotoju nr." value="'.$row['darbuotoju_nr'].'"><br/>
                 <input type="password" name="a6" placeholder="Slaptažodis" value="'.$row['slaptazodis'].'"><br/>
                 <button type="submit" name="save">Saugoti</button>
             </form>

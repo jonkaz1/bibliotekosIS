@@ -19,10 +19,14 @@ echo "<tr><td>Pavadinimas</td><td>Aprašymas</td><td>Kaina</td><td>Tipas</td></t
             <tr>
                 <td>" . $row['pavadinimas'] . "</td>
                 <td>" . $row['aprasymas'] . "</td>
-                <td>" . $row['kaina_asmeniui'] . "</td>
+                <td>" . $row['kaina_asmeniui'] . " EUR</td>
                 <td>" . $row['tipas'] . "</td>
                 <td>
-                    <form method='get' action='editTrip.php'>
+                    <form style='display: inline;' method='get' action='tripExpenses.php'>
+                        <input type='hidden' name='id' value='". $row['id_Kelione'] ."'>
+                        <button type='submit' name='expenses'>Išlaidos</button>
+                    </form>
+                    <form style='display: inline;' method='get' action='editTrip.php'>
                         <input type='hidden' name='id' value='". $row['id_Kelione'] ."'>
                         <button type='submit' name='edit'>Redaguoti</button>
                     </form>

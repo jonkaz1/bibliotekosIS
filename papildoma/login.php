@@ -52,6 +52,7 @@ if ((isset($_POST['submit'])))
                     $_SESSION['name'] = $row['vardas'];
                     $_SESSION['priv'] = 3;
                     $_SESSION['nick'] = $row['el_pastas'];
+                    $_SESSION['userId'] = $row['darbuotoju_nr'];
                     header("Location: ../index.php");
                 }
             }
